@@ -12,13 +12,14 @@ fn main() {
 fn part1(s: &str) -> usize {
     let (list1, list2) = str_to_lists_sorted(&s);
     zip(list1, list2)
-        .map(|(x, y)| if x < y {y - x} else {x - y})
+        .map(|(x, y)| if x < y { y - x } else { x - y })
         .sum()
 }
 
 fn part2(s: &str) -> usize {
     let (list1, list2) = str_to_lists(&s);
-    list1.into_iter()
+    list1
+        .into_iter()
         .map(|x| (x, list2.iter().filter(|y| x == **y).count()))
         .map(|(x, count)| x * count)
         .sum()
@@ -32,7 +33,8 @@ fn str_to_lists_sorted(s: &str) -> (Vec<usize>, Vec<usize>) {
 }
 
 fn str_to_lists(s: &str) -> (Vec<usize>, Vec<usize>) {
-    let lists: (Vec<usize>, Vec<usize>) = s.split("\n")
+    let lists: (Vec<usize>, Vec<usize>) = s
+        .split("\n")
         .filter(|x| *x != "")
         .map(|x| x.split("   "))
         .map(|mut split| (split.next().unwrap(), split.next().unwrap()))
@@ -51,7 +53,8 @@ mod tests {
 2   5
 1   3
 3   9
-3   3".to_string()
+3   3"
+            .to_string()
     }
 
     #[test]
